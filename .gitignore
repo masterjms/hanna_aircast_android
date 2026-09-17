@@ -1,0 +1,24 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# 서명 키와 그 비밀번호 — 절대 커밋하지 않는다
+*.jks
+*.keystore
+keystore.properties
+
+# IDE 개인 설정
+/.idea
+/.kotlin
