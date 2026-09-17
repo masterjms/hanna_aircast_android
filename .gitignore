@@ -22,3 +22,6 @@ keystore.properties
 # IDE 개인 설정
 /.idea
 /.kotlin
+
+# 「Generate Signed APK」 마법사가 APK 를 떨구는 곳
+/app/release

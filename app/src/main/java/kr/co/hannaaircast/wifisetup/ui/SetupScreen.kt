@@ -165,6 +165,8 @@ fun SetupScreen(
 private data class Copy(val title: String, val sub: String?)
 
 private fun copyFor(state: UiState): Copy = when {
+    // 닫으면 앱이 끝나는 오류가 떠 있는 동안. 뒤에서 「찾고 있어요」라고 하면 거짓말이다.
+    state.fatal != null -> Copy("USB 장치를 연결해 주세요", null)
     state.usb == Light.ERROR && state.fatal == null ->
         Copy("USB 연결이 끊겼어요", "USB 장치를 다시 연결한 뒤 앱을 다시 실행해 주세요.")
     state.send == SendStatus.Sending -> Copy("단말에 보내고 있어요", null)

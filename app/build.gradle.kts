@@ -1,3 +1,12 @@
+import java.util.Properties
+
+// 서명 키 정보는 저장소 밖에 둔다(keystore.properties 는 .gitignore). 파일이 없으면
+// release 는 서명 없이 빌드된다 — 그 APK 는 폰에 설치되지 않는다. README 「배포」 참고.
+val keystore = Properties().apply {
+    val file = rootProject.file("keystore.properties")
+    if (file.exists()) file.inputStream().use { load(it) }
+}
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -19,8 +28,22 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        if (keystore.isNotEmpty()) {
+            create("release") {
+                storeFile = file(keystore.getProperty("storeFile"))
+                storePassword = keystore.getProperty("storePassword")
+                keyAlias = keystore.getProperty("keyAlias")
+                keyPassword = keystore.getProperty("keyPassword")
+            }
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig = signingConfigs.findByName("release")
+            // 코드 축소(R8)는 켜지 않는다. APK 가 11MB 라 줄일 이유가 없고, USB 드라이버를
+            // 리플렉션으로 찾는 라이브러리라 축소가 조용히 깨뜨릴 수 있다.
             optimization {
                 enable = false
             }

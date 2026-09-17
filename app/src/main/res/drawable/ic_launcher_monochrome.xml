@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 안드로이드 13 의 「테마 아이콘」용 단색 실루엣. 빨강·파랑 자리를 뚫어 H 로 읽히게 한다. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#000000"
+        android:fillType="evenOdd"
+        android:pathData="M32.77,29.00 H75.23 V79.00 H32.77 Z M48.18,29.00 H59.82 V47.24 H48.18 Z M48.18,59.82 H59.82 V79.00 H48.18 Z" />
+</vector>
