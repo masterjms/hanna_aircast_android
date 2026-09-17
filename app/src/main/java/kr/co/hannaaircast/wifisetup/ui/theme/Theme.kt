@@ -1,58 +1,26 @@
 package kr.co.hannaaircast.wifisetup.ui.theme
 
-import android.app.Activity
-import android.os.Build
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
-)
-
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+/**
+ * 밝은 테마 하나뿐이다. 현장(실외, 공유기 앞)에서 쓰는 도구라 폰이 다크 모드여도
+ * 화면은 밝게 유지한다 — 햇빛 아래에서 비밀번호를 읽어야 한다.
+ */
+private val Colors = lightColorScheme(
+    primary = Hanna.Blue,
+    onPrimary = Hanna.Surface,
+    background = Hanna.Ground,
+    onBackground = Hanna.Ink,
+    surface = Hanna.Surface,
+    onSurface = Hanna.Ink,
+    onSurfaceVariant = Hanna.Sub,
+    outline = Hanna.Line,
+    error = Hanna.Red,
 )
 
 @Composable
-fun HannaaircastTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
-    content: @Composable () -> Unit
-) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
-    }
-
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
+fun HannaaircastTheme(content: @Composable () -> Unit) {
+    MaterialTheme(colorScheme = Colors, typography = Typography, content = content)
 }

@@ -33,6 +33,16 @@ android {
     buildFeatures {
         compose = true
     }
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+            all {
+                val shots = providers.gradleProperty("shots").isPresent.toString()
+                it.systemProperty("shots", shots)
+                it.systemProperty("roborazzi.test.record", shots)
+            }
+        }
+    }
 }
 
 dependencies {
@@ -48,6 +58,12 @@ dependencies {
     implementation(libs.zxing.embedded)
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
+    // 화면을 PC 에서 PNG 로 그려 본다(폰 없이 디자인 확인). `gradlew testDebugUnitTest -Pshots`
+    testImplementation(libs.robolectric)
+    testImplementation(libs.roborazzi)
+    testImplementation(libs.roborazzi.compose)
+    testImplementation(platform(libs.androidx.compose.bom))
+    testImplementation(libs.androidx.compose.ui.test.junit4)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     androidTestImplementation(libs.androidx.espresso.core)

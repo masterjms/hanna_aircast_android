@@ -164,7 +164,10 @@ class SetupViewModel(
             when (result) {
                 is ExchangeResult.Ok ->
                     if (result.response.ok) {
-                        state.copy(send = SendStatus.Ok)
+                        // 화면의 「단말에 저장된 Wi-Fi」도 방금 쓴 값으로 바꾼다. 옛 값이 남으면
+                        // 저장이 안 된 것처럼 보인다.
+                        val saved = result.response.ssid ?: credential.ssid
+                        state.copy(send = SendStatus.Ok, deviceInfo = state.deviceInfo?.copy(ssid = saved))
                     } else {
                         state.copy(send = SendStatus.Fail(result.response.error))
                     }

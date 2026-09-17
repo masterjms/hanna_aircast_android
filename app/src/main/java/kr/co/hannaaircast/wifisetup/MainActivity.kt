@@ -5,10 +5,12 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Color
 import android.hardware.usb.UsbManager
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -53,7 +55,11 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        // 화면은 항상 밝다. 폰이 다크 모드여도 상태 표시줄 아이콘은 어둡게 둔다.
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT),
+            navigationBarStyle = SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT),
+        )
 
         ContextCompat.registerReceiver(
             this,
@@ -71,7 +77,7 @@ class MainActivity : ComponentActivity() {
         val version = packageManager.getPackageInfo(packageName, 0).versionName.orEmpty()
 
         setContent {
-            HannaaircastTheme(dynamicColor = false) {
+            HannaaircastTheme {
                 val state by viewModel.state.collectAsState()
 
                 val scanner = rememberLauncherForActivityResult(ScanContract()) { result ->

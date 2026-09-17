@@ -84,6 +84,8 @@ class SetupViewModelTest {
         vm.send()
         assertEquals("@SSID=HOME_WIFI\n@PASSWORD=12345678\n@END\n", t.written.last())
         assertEquals(SendStatus.Ok, vm.state.value.send)
+        // 화면의 「단말에 저장된 Wi-Fi」도 단말이 답한 값으로 바뀐다.
+        assertEquals("x", vm.state.value.deviceInfo?.ssid)
     }
 
     @Test
