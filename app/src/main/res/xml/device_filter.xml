@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 꽂았을 때 「이 앱으로 열까요?」를 띄울 USB-to-serial 칩. 값은 10진수 VID/PID 다.
+     여기 없는 칩도 앱을 직접 실행하면 쓸 수 있다 — 자동 실행 제안만 안 뜬다. -->
+<resources>
+    <!-- Silicon Labs CP2102 / CP2105 / CP2108 (0x10C4) -->
+    <usb-device vendor-id="4292" product-id="60000" />
+    <usb-device vendor-id="4292" product-id="60016" />
+    <usb-device vendor-id="4292" product-id="60017" />
+    <!-- WCH CH340 / CH341 / CH9102 (0x1A86) -->
+    <usb-device vendor-id="6790" product-id="29987" />
+    <usb-device vendor-id="6790" product-id="21795" />
+    <usb-device vendor-id="6790" product-id="21972" />
+    <!-- FTDI FT232R / FT231X (0x0403) -->
+    <usb-device vendor-id="1027" product-id="24577" />
+    <usb-device vendor-id="1027" product-id="24597" />
+    <!-- Prolific PL2303 (0x067B) -->
+    <usb-device vendor-id="1659" product-id="8963" />
+    <usb-device vendor-id="1659" product-id="9123" />
+</resources>

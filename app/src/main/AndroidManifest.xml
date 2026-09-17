@@ -2,27 +2,52 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- INTERNET 권한은 일부러 넣지 않는다. 이 앱은 서버와 통신하지 않는다(앱 사양 §20).
+         권한이 없으면 누가 통신 코드를 넣어도 실패한다. -->
+
+    <uses-feature android:name="android.hardware.usb.host" android:required="true" />
+    <!-- 카메라가 없어도 수동 입력으로 쓸 수 있다. CAMERA 권한은 QR 라이브러리가 선언한다. -->
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+
     <application
-        android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Hannaaircast">
+        android:theme="@style/Theme.Hannaaircast"
+        tools:ignore="DataExtractionRules">
+        <!-- singleTop: 앱이 떠 있는 동안 보드를 꽂아도 화면을 새로 만들지 않는다(§3.2). -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Hannaaircast"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <!-- 보드를 꽂으면 「이 앱으로 열까요?」가 뜬다. 그렇게 열리면 USB 권한 창이 없다. -->
+            <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+            </intent-filter>
+            <meta-data
+                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+                android:resource="@xml/device_filter" />
         </activity>
+
+        <!-- QR 스캐너 화면은 기본이 가로다. 세로로 고정한다. -->
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity"
+            tools:replace="android:screenOrientation" />
     </application>
 
 </manifest>
